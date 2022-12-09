@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Game</title>
+  </head>
+  <body>
+    <h1>My Game</h1>
+
+    <script>
+
+// create canvas and context
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+
+// set canvas dimensions
+canvas.width = 800;
+canvas.height = 600;
+
+// add canvas to the page
+document.body.appendChild(canvas);
+
+// create ball object
+const ball = {
+  x: canvas.width / 2,
+  y: canvas.height / 2,
+  radius: 10,
+  velocityX: 5,
+  velocityY: 5,
+  speed: 7,
+  color: '#0095dd'
+};
+
+// create paddles
+const player1 = {
+  x: 0,
+  y: (canvas.height - 100) / 2,
+  width: 10,
+  height: 100,
+  color: '#0095dd',
+  score: 0
+};
+
+const player2 = {
+  x: canvas.width - 10,
+  y: (canvas.height - 100) / 2,
+  width: 10,
+  height: 100,
+  color: '#0095dd',
+  score: 0
+};
+
+// create the net
+const net = {
+  x: (canvas.width - 2) / 2,
+  y: 0,
+  height: 10,
+  width: 2,
+  color: '#0095dd'
+};
+
+// draw a rectangle, used to create the paddles
+function drawRect(x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, w, h);
+}
+
+// draw a circle, used to create the ball
+function drawArc(x, y, r, color) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2, true);
+  ctx.closePath();
+  ctx.fill();
+}
+
+// draw the net
+function drawNet() {
+  for (let i = 0; i <= canvas.height; i += 15) {
+    drawRect(net.x, net.y + i, net.width, net.height, net.color);
+  }
+}
+
+// draw the score on the canvas
+function drawScore(text, x, y, color) {
+  ctx.fillStyle = color;
+  ctx.font = '45px fantasy';
+  ctx.fillText(text, x, y);
+}
+
+// render the game
+function render() {
+  // clear the canvas
+  drawRect(0, 0, canvas.width, canvas.height, '#000');
+
+  // draw the net
+  drawNet();
+
+  // draw the score
+  drawScore(player1.score, canvas.width / 4, canvas.height / 5, '#0095dd');
+  drawScore(player2.score, 3 * canvas.width / 4, canvas.height / 5, '#0095dd');
+}
+</script>
+  </body>
+</html>
