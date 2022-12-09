@@ -8,16 +8,17 @@
 
     <script>
 
-// create canvas and context
-const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d');
+window.onload = function() {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
 
-// set canvas dimensions
-canvas.width = 800;
-canvas.height = 600;
+  // set canvas dimensions
+  canvas.width = 800;
+  canvas.height = 600;
 
-// add canvas to the page
-document.body.appendChild(canvas);
+  // add canvas to the page
+  document.body.appendChild(canvas);
+};
 
 // create ball object
 const ball = {
