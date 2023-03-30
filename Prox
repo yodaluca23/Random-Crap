@@ -1,45 +1,57 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import svgr from 'vite-plugin-svgr';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import svgr from 'vite-plugin-svgr'
+
 import createBareServer from '@tomphttp/bare-server-node';
 import express from 'express';
-import chalk from 'chalk';
-import block from './blocklist/block.json' assert { type: 'json' };
+import dns from 'dns';
 
-const bareServer = createBareServer('/not-sus-server/');
-const app = express();
+const familyProtectionDNS = '1.1.1.3'; // Cloudflare Family Protection DNS server address
+
+const customResolver = (url, callback) => {
+  dns.resolve4(url.hostname, familyProtectionDNS, (err, addresses) => {
+    if (err) {
+      callback(err);
+    } else {
+      url.host = addresses[0];
+      callback(null, url);
+    }
+  });
+};
 
 const setupProxy = {
   name: 'setup-proxy-plugin',
   async configureServer(server) {
-    server.httpServer.on('request', (req, res) => {
-      if (bareServer.shouldRoute(req)) {
-        if (block.includes(req.headers['x-bare-host'])) {
-          return res.end(
-            JSON.stringify({
-              id: 'error.Blocked',
-              message: 'Header was blocked by the owner of this site.'
-            })
-          );
+    const bareServer = createBareServer("/not-sus-server/");
+
+    server.middlewares.use((req, res, next) => {
+      if(bareServer.shouldRoute(req)) bareServer.routeRequest(req, res); else next();
+    });
+
+    server.middlewares.use("/URIconfig", (req, res) => {
+      res.end(JSON.stringify({
+        DC: process.env['INVITE_URL'] || "example.com",
+        CH: process.env['CHATBOX_URL'] || "example.com"
+      }));
+    });
+
+    server.middlewares.use(express.static("./static"));
+
+    server.middlewares.use((req, res, next) => {
+      const originalResolve = req._proxyRequestOptions.lookup;
+      req._proxyRequestOptions.lookup = customResolver.bind(null, req._proxyRequestOptions.url);
+      originalResolve(req._proxyRequestOptions.hostname, (err, address) => {
+        req._proxyRequestOptions.lookup = originalResolve;
+        if (err) {
+          next(err);
+        } else {
+          req._proxyRequestOptions.host = address;
+          next();
         }
-        bareServer.routeRequest(req, res);
-      } else {
-        server.middlewares(req, res, () => {});
-      }
+      });
     });
-
-    server.middlewares.use('/URIconfig', (req, res) => {
-      res.end(
-        JSON.stringify({
-          DC: process.env['INVITE_URL'] || 'example.com',
-          CH: process.env['CHATBOX_URL'] || 'example.com'
-        })
-      );
-    });
-
-    server.middlewares.use(express.static('./static'));
   }
-};
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -50,12 +62,12 @@ export default defineConfig({
         prettier: false,
         svgo: false,
         svgoConfig: {
-          plugins: [{ removeViewBox: false }]
+          plugins: [{ removeViewBox: false }],
         },
         titleProp: true,
-        ref: true
+        ref: true,
       }
     }),
     setupProxy
   ]
-});
+})
