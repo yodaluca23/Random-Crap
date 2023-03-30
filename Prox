@@ -6,7 +6,8 @@ import createBareServer from '@tomphttp/bare-server-node';
 import express from 'express';
 import dns from 'dns';
 
-const familyProtectionDNS = '1.1.1.3'; // Cloudflare Family Protection DNS server address
+const familyProtectionDNS = process.env.PROXY_DNS || '1.1.1.1';
+
 
 const customResolver = (url, callback) => {
   dns.resolve4(url.hostname, familyProtectionDNS, (err, addresses) => {
