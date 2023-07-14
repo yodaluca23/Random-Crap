@@ -8,6 +8,9 @@
       "name": "BlackHole",
       "bundleIdentifier": "com.shadow.blackhole1.15.8.ios",
       "developerName": "Ankit Sangwan",
+      "contact": {
+          "web": "https://sangwan5688.github.io"
+      },
       "version": "1.15.7",
       "versionDate": "2023-6-4T12:00:00-01:00",
       "size": 28702109,
