@@ -1,7 +1,9 @@
 {
   "name": "BlackHole",
   "identifier": "com.shadow.blackhole",
-  "sourceURL": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/AltStore%20Repo.json",
+  "sourceURL": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/AltStore%20Repo/AltStore%20Repo.json",
+  "headerURL": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/AltStore%20Repo/source_header.png",
+  "website": "https://sangwan5688.github.io",
   "META": { "repoName": "BlackHole", "repoIcon": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/ios/Runner/Assets.xcassets/AppIcon.appiconset/Untitled.jpg" },
   "apps": [
     {
