@@ -33,6 +33,19 @@
       "localizedDescription": "Features:\n\n - Best Streaming Quality (320kbps)\n - Music Search\n - Trending Songs\n - Support 15+ music languages\n - Local and Global Top Spotify songs\n - Add Songs to Favorite\n - Playlists support\n - Import Playlists from Spotify\n - Sleep timer\n - Lyrics Support\n - Listening history record\n - Dark mode / accent color\n - Download for offline play (320kbps with ID3 tags)\n - Play Online as well as Offline Songs\n - Queue Management\n - Auto Update Check\n - Cache support\n - No Subscription\n - No Ads\n More to come...",
       "iconURL": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/ios/Runner/Assets.xcassets/AppIcon.appiconset/Untitled.jpg",
       "tintColor": "3a3a3a",
+      "appPermissions": {
+        "entitlements": [
+          {
+            "name": "keychain-access-groups"
+          }
+        ],
+        "privacy": [
+          {
+          "name": "network",
+          "usageDescription": "This allows the app to determine your connection type for streaming quality."
+          }
+        ]
+      },
       "permissions": [
         {
           "type": "network",
