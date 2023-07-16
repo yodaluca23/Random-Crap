@@ -5,6 +5,8 @@
   "headerURL": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/AltStore%20Repo/source_header.png",
   "website": "https://sangwan5688.github.io",
   "META": { "repoName": "BlackHole", "repoIcon": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/ios/Runner/Assets.xcassets/AppIcon.appiconset/Untitled.jpg" },
+  "iconURL": "https://raw.githubusercontent.com/Sangwan5688/BlackHole/main/ios/Runner/Assets.xcassets/AppIcon.appiconset/Untitled.jpg",
+  "subtitle": "An Open-Source Music Player App for all your needs!",
   "apps": [
     {
       "name": "BlackHole",
