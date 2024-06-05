@@ -1,29 +1,5 @@
 #To run Install PowerShell 7 on MacOS "brew install powershell". Tp run install PowerShell 7 on Windows PS: "winget install --id Microsoft.Powershell --source winget". Open PowerShell 7 and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
 
-# Function to check if the user is using the new PowerShell 7 (only for Windows)
-function Check-NewPowerShell {
-    if ($IsWindows) {
-        $isPowerShell7 = $PSVersionTable.PSEdition -eq "Core"
-
-        if (-not $isPowerShell7) {
-            Write-Output "You are not using PowerShell 7."
-            $installChoice = Read-Host "Do you want to install PowerShell 7? (yes/no)"
-
-            if ($installChoice -eq "yes") {
-                Write-Output "Installing PowerShell 7..."
-                winget install --id Microsoft.Powershell --source winget
-                Write-Output "PowerShell 7 installed successfully."
-            } elseif ($installChoice -eq "no") {
-                Write-Output "Exiting the script."
-                exit
-            } else {
-                Write-Output "Invalid choice. Exiting the script."
-                exit
-            }
-        }
-    }
-}
-
 # Function to run Windows scripts
 function Run-WindowsScripts {
     Write-Output "Running on Windows"
@@ -53,10 +29,12 @@ function Run-UnixScripts {
 }
 
 # Main script execution
-Check-NewPowerShell
-
 if ($IsWindows) {
-    Run-WindowsScripts
+    if ($PSVersionTable.PSVersion.Major -eq 7) {
+        Run-WindowsScripts
+    } elseif ($PSVersionTable.PSVersion.Major -lt 7) {
+        Write-Output "Please install PowerShell 7 to run this script."
+    }
 } elseif ($IsMacOS -or $IsLinux) {
     Run-UnixScripts
 } else {
