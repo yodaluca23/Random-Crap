@@ -2,7 +2,7 @@
 
 # Function to check the operating system
 function Get-OS {
-    $os = $PSVersionTable.PSPlatform
+    $os = $PSVersionTable.Platform
     return $os
 }
 
@@ -37,9 +37,9 @@ function Run-UnixScripts {
 # Main script execution
 $os = Get-OS
 
-if ($os -eq "Windows") {
+if ($os -eq "Win32NT") {
     Run-WindowsScripts
-} elseif ($os -eq "Linux" -or $os -eq "Darwin") {
+} elseif ($os -eq "Unix") {
     Run-UnixScripts
 } else {
     Write-Output "Unsupported OS: $os"
