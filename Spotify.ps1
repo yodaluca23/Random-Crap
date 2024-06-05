@@ -1,4 +1,4 @@
-#To run Install PowerShell on MacOS "brew install powershell". Open PowerShell and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
+#To run Install PowerShell 7 on MacOS "brew install powershell". Tp run install PowerShell 7 on Windows PS: "winget install --id Microsoft.Powershell --source winget". Open PowerShell 7 and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
 
 # Function to run Windows scripts
 function Run-WindowsScripts {
