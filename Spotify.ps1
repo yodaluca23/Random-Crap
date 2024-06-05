@@ -28,6 +28,22 @@ function Run-UnixScripts {
     bash -c "$spicetifyScript"
 }
 
+# Function to clean up temporary files
+function Cleanup {
+    # Delete Install_New_theme.bat
+    $batchScriptPath = "$env:TEMP\Install_New_theme.bat"
+    if (Test-Path $batchScriptPath) {
+        Remove-Item $batchScriptPath -Force
+    }
+    
+    # Delete spicetify.zip
+    $spicetifyZipPath = "$env:TEMP\spicetify.zip"
+    if (Test-Path $spicetifyZipPath) {
+        Remove-Item $spicetifyZipPath -Force
+    }
+}
+
+
 # Main script execution
 if ($PSVersionTable.PSVersion.Major -ge 7) {
     if ($IsWindows) {
@@ -40,3 +56,6 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
 } else {
     Write-Output "Please install PowerShell 7 or newer to run this script."
 }
+
+# Clean up temporary files
+Cleanup
