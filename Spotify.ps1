@@ -1,3 +1,5 @@
+#To run Install PowerShell on MacOS "brew install powershell". Open PowerShell and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
+
 # Function to check the operating system
 function Get-OS {
     $os = $PSVersionTable.PSPlatform
