@@ -1,11 +1,5 @@
 #To run Install PowerShell on MacOS "brew install powershell". Open PowerShell and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
 
-# Function to check the operating system
-function Get-OS {
-    $os = $PSVersionTable.Platform
-    return $os
-}
-
 # Function to run Windows scripts
 function Run-WindowsScripts {
     Write-Output "Running on Windows"
@@ -35,12 +29,10 @@ function Run-UnixScripts {
 }
 
 # Main script execution
-$os = Get-OS
-
-if ($os -eq "Win32NT") {
+if ($IsWindows) {
     Run-WindowsScripts
-} elseif ($os -eq "Unix") {
+} elseif ($IsMacOS -or $IsLinux) {
     Run-UnixScripts
 } else {
-    Write-Output "Unsupported OS: $os"
+    Write-Output "Unsupported OS"
 }
