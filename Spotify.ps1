@@ -29,14 +29,14 @@ function Run-UnixScripts {
 }
 
 # Main script execution
-if ($IsWindows) {
-    if ($PSVersionTable.PSVersion.Major -eq 7) {
+if ($PSVersionTable.PSVersion.Major -ge 7) {
+    if ($IsWindows) {
         Run-WindowsScripts
-    } elseif ($PSVersionTable.PSVersion.Major -lt 7) {
-        Write-Output "Please install PowerShell 7 to run this script."
-    }
-} elseif ($IsMacOS -or $IsLinux) {
-    Run-UnixScripts
-} else {
+    } elseif ($IsMacOS -or $IsLinux) {
+        Run-UnixScripts
+    } else {
     Write-Output "Unsupported OS"
+}
+} else {
+    Write-Output "Please install PowerShell 7 or newer to run this script."
 }
