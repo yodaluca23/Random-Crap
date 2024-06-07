@@ -29,6 +29,12 @@ function Run-WindowsScripts {
     Write-Output "Please open Spotify. The script will continue in 30 seconds."
     Start-Sleep -Seconds 30
 
+    # Terminate Spotify process
+    $spotifyProcess = Get-Process -Name "Spotify" -ErrorAction SilentlyContinue
+    if ($spotifyProcess) {
+        Stop-Process -Name "Spotify" -Force
+    }
+
     # Run the Spicetify-Win installation script
     $psScriptUrl = "https://raw.githubusercontent.com/spicetify/cli/main/install.ps1"
     Invoke-Expression (Invoke-WebRequest -Uri $psScriptUrl -UseBasicParsing).Content
@@ -51,6 +57,12 @@ function Run-UnixScripts {
     # Prompt the user to open Spotify
     Write-Output "Please open Spotify. The script will continue in 30 seconds."
     Start-Sleep -Seconds 30
+
+    # Terminate Spotify process
+    $spotifyProcess = pgrep -x "Spotify" -d ","
+    if ($spotifyProcess) {
+        kill $spotifyProcess
+    }
 
     # Run the Spicetify-Bash installation script
     $spicetifyScript = "curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh"
