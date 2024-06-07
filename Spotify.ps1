@@ -53,7 +53,7 @@ function Run-UnixScripts {
     # Run the SpotX-Bash installation script
     if ($IsMacOS) {
         $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installmac -i"
-    } elif ($IsLinux) {
+    } ElseIf ($IsLinux) {
         $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installdeb -i"
     }
     bash -c "$spotxScript"
