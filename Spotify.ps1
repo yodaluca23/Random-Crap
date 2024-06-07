@@ -25,15 +25,11 @@ function Run-WindowsScripts {
     Invoke-WebRequest -Uri $batchScriptUrl -OutFile $batchScriptPath
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c $batchScriptPath" -Wait
 
-    # Prompt the user to open Spotify
-    Write-Output "Please open Spotify. The script will continue in 30 seconds."
+    # Open Spotify
+    Start-Process "spotify://open" -ErrorAction SilentlyContinue
+    Write-Output "Openning the Spotify Application for 30 seconds to avoid conflicts with Spicetify installation."
     Start-Sleep -Seconds 30
-
-    # Terminate Spotify process
-    $spotifyProcess = Get-Process -Name "Spotify" -ErrorAction SilentlyContinue
-    if ($spotifyProcess) {
-        Stop-Process -Name "Spotify" -Force
-    }
+    Stop-Process -Name "Spotify" -Force -ErrorAction SilentlyContinue
 
     # Run the Spicetify-Win installation script
     $psScriptUrl = "https://raw.githubusercontent.com/spicetify/cli/main/install.ps1"
@@ -54,15 +50,11 @@ function Run-UnixScripts {
     $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installmac -h"
     bash -c "$spotxScript"
 
-    # Prompt the user to open Spotify
-    Write-Output "Please open Spotify. The script will continue in 30 seconds."
+    # Open Spotify
+    Start-Process -FilePath "open" -ArgumentList "spotify://open"
+    Write-Output "Openning the Spotify Application for 30 seconds to avoid conflicts with Spicetify installation."
     Start-Sleep -Seconds 30
-
-    # Terminate Spotify process
-    $spotifyProcess = pgrep -x "Spotify" -d ","
-    if ($spotifyProcess) {
-        kill $spotifyProcess
-    }
+    pkill -f "Spotify"
 
     # Run the Spicetify-Bash installation script
     $spicetifyScript = "curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh"
