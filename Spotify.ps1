@@ -1,6 +1,7 @@
 # To run on MacOS Install PowerShell 7 with "brew install powershell". To run on Win install PowerShell 7 with "winget install --id Microsoft.Powershell --source winget".
-# To run Open PowerShell 7 and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
+# To run Open PowerShell 7 and run "iex "& { $(iwr -useb 'https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1') }""
 # Parameters include "-clean" which will perform a clean install of Spotify, first uninstalling and then running the main patching scripts.
+# Parameter example "iex "& { $(iwr -useb 'https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1') } -clean"
 
 param (
     [Parameter()]
@@ -26,7 +27,10 @@ function Run-WindowsScripts {
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c $batchScriptPath" -Wait
 
     # Open Spotify
-    Start-Process "spotify://open" -ErrorAction SilentlyContinue
+    $spotifyDirectory = Join-Path $env:APPDATA 'Spotify'
+    $spotifyDirectory2 = Join-Path $env:LOCALAPPDATA 'Spotify'
+    $spotifyExecutable = Join-Path $spotifyDirectory 'Spotify.exe'
+    Start-Process -FilePath $spotifyExecutable
     Write-Output "Openning the Spotify Application for 30 seconds to avoid conflicts with Spicetify installation. If it does not open automatically please open it manually."
     Start-Sleep -Seconds 30
     Stop-Process -Name "Spotify" -Force -ErrorAction SilentlyContinue
@@ -47,7 +51,7 @@ function Run-UnixScripts {
     }
 
     # Run the SpotX-Bash installation script
-    $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installmac -h"
+    $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installmac -i"
     bash -c "$spotxScript"
 
     # Open Spotify
