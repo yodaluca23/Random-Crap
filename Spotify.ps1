@@ -100,7 +100,7 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
         Write-Output "Unsupported OS"
     }
 } else {
-    $IsMacOS and $IsLinux and $IsWindows = False
+    $IsMacOS = $IsLinux = $IsWindows = False
     $os = Read-Host 'What operating system is this? Windows (w), MacOS (m), or Linux (l)?'
     if ($os == 'w' or 'W') {
     $IsWindows = True
