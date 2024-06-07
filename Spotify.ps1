@@ -1,5 +1,5 @@
-#To run on MacOS Install PowerShell 7 with "brew install powershell". To run on Win install PowerShell 7 with "winget install --id Microsoft.Powershell --source winget". Open PowerShell 7 and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
-#Parameters include "-clean" which will perform a clean install of Spotify, first uninstalling and then running the main patching scripts.
+# To run on MacOS Install PowerShell 7 with "brew install powershell". To run on Win install PowerShell 7 with "winget install --id Microsoft.Powershell --source winget". Open PowerShell 7 and run "iwr -useb https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1 | iex"
+# Parameters include "-clean" which will perform a clean install of Spotify, first uninstalling and then running the main patching scripts.
 
 param (
     [switch]$clean
@@ -76,6 +76,7 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
         Run-UnixScripts
     } else {
     Write-Output "Unsupported OS"
+    }
 } else {
     Write-Output "Please install PowerShell 7 or newer to run this script."
 }
