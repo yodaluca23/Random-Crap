@@ -25,6 +25,10 @@ function Run-WindowsScripts {
     Invoke-WebRequest -Uri $batchScriptUrl -OutFile $batchScriptPath
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c $batchScriptPath" -Wait
 
+    # Prompt the user to open Spotify
+    Write-Output "Please open Spotify. The script will continue in 30 seconds."
+    Start-Sleep -Seconds 30
+
     # Run the Spicetify-Win installation script
     $psScriptUrl = "https://raw.githubusercontent.com/spicetify/cli/main/install.ps1"
     Invoke-Expression (Invoke-WebRequest -Uri $psScriptUrl -UseBasicParsing).Content
@@ -43,6 +47,10 @@ function Run-UnixScripts {
     # Run the SpotX-Bash installation script
     $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installmac -h"
     bash -c "$spotxScript"
+
+    # Prompt the user to open Spotify
+    Write-Output "Please open Spotify. The script will continue in 30 seconds."
+    Start-Sleep -Seconds 30
 
     # Run the Spicetify-Bash installation script
     $spicetifyScript = "curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh"
