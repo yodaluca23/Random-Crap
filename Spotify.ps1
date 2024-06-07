@@ -27,7 +27,7 @@ function Run-WindowsScripts {
 
     # Open Spotify
     Start-Process "spotify://open" -ErrorAction SilentlyContinue
-    Write-Output "Openning the Spotify Application for 30 seconds to avoid conflicts with Spicetify installation."
+    Write-Output "Openning the Spotify Application for 30 seconds to avoid conflicts with Spicetify installation. If it does not open automatically please open it manually."
     Start-Sleep -Seconds 30
     Stop-Process -Name "Spotify" -Force -ErrorAction SilentlyContinue
 
@@ -52,7 +52,7 @@ function Run-UnixScripts {
 
     # Open Spotify
     Start-Process -FilePath "open" -ArgumentList "spotify://open"
-    Write-Output "Openning the Spotify Application for 30 seconds to avoid conflicts with Spicetify installation."
+    Write-Output "Openning the Spotify Application for 30 seconds to avoid conflicts with Spicetify installation. If it does not open automatically please open it manually."
     Start-Sleep -Seconds 30
     pkill -f "Spotify"
 
