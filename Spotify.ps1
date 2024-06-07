@@ -51,7 +51,11 @@ function Run-UnixScripts {
     }
 
     # Run the SpotX-Bash installation script
-    $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installmac -i"
+    if ($IsMacOS) {
+        $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installmac -i"
+    } elif ($IsLinux) {
+        $spotxScript = "bash <(curl -sSL https://spotx-official.github.io/run.sh) --installdeb -i"
+    }
     bash -c "$spotxScript"
 
     # Open Spotify
@@ -96,7 +100,21 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
         Write-Output "Unsupported OS"
     }
 } else {
-    Write-Output "Please install PowerShell 7 or newer to run this script."
+    $IsMacOS and $IsLinux and $IsWindows = False
+    $os = Read-Host 'What operating system is this? Windows (w), MacOS (m), or Linux (l)?'
+    if ($os == 'w' or 'W') {
+    $IsWindows = True
+    Run-WindowsScripts
+    }
+    if ($os == 'm' or 'M') {
+    $IsMacOS = True
+    Run-UnixScripts
+    }
+    if ($os == 'l' or 'L') {
+    $IsLinux = True
+    Run-UnixScripts
+    }
+    Write-Output "Tip: Install PowerShell 7 or newer to skip this prompt next time."
 }
 
 # Clean up temporary files
