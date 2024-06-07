@@ -1,7 +1,7 @@
 # To run on MacOS Install PowerShell 7 with "brew install powershell". To run on Win install PowerShell 7 with "winget install --id Microsoft.Powershell --source winget".
 # To run Open PowerShell 7 and run "iex "& { $(iwr -useb 'https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1') }""
 # Parameters include "-clean" which will perform a clean install of Spotify, first uninstalling and then running the main patching scripts.
-# Parameter example "iex "& { $(iwr -useb 'https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1') } -clean"
+# Parameter example "iex "& { $(iwr -useb 'https://raw.githubusercontent.com/yodaluca23/Random-Crap/main/Spotify.ps1') } -clean""
 
 param (
     [Parameter()]
