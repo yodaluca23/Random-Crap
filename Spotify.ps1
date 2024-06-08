@@ -102,15 +102,15 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
 } else {
     [bool] $IsMacOS = $IsLinux = $IsWindows = $false
     $os = Read-Host 'What operating system is this? Windows (w), MacOS (m), or Linux (l)?'
-    if ($os == 'w' or 'W') {
+    if ($os -eq 'w' or 'W') {
     [bool] $IsWindows = $true
     Run-WindowsScripts
     }
-    if ($os == 'm' or 'M') {
+    if ($os -eq 'm' or 'M') {
     [bool] $IsMacOS = $true
     Run-UnixScripts
     }
-    if ($os == 'l' or 'L') {
+    if ($os -eq 'l' or 'L') {
     [bool] $IsLinux = $true
     Run-UnixScripts
     }
